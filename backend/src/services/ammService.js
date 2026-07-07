@@ -62,9 +62,27 @@ function quoteBuy(assetAmount) {
   };
 }
 
+/**
+ * Buys assets from the pool and updates the singleton liquidity state.
+ * @param {number} assetAmount - The amount of assets to buy.
+ * @returns {Object} The trade details plus the updated pool state.
+ */
+function buyAsset(assetAmount) {
+  const quote = quoteBuy(assetAmount);
+
+  liquidityPool.assetReserve = quote.newAssetReserve;
+  liquidityPool.usdcReserve = quote.newUsdcReserve;
+
+  return {
+    ...quote,
+    updatedPool: liquidityPool,
+  };
+}
+
 module.exports = {
   getPool,
   getConstantProduct,
   getSpotPrice,
   quoteBuy,
+  buyAsset,
 };
