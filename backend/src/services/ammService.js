@@ -119,6 +119,37 @@ function sellAsset(assetAmount) {
   };
 }
 
+/**
+ * Adds liquidity to the pool and mints LP tokens.
+ * @param {number} assetAmount - The amount of asset tokens to add.
+ * @param {number} usdcAmount - The amount of USDC to add.
+ * @returns {Object} Liquidity add details plus the updated pool state.
+ */
+function addLiquidity(assetAmount, usdcAmount) {
+  if (typeof assetAmount !== 'number' || !Number.isFinite(assetAmount) || assetAmount <= 0) {
+    throw new Error('assetAmount must be a positive number');
+  }
+
+  if (typeof usdcAmount !== 'number' || !Number.isFinite(usdcAmount) || usdcAmount <= 0) {
+    throw new Error('usdcAmount must be a positive number');
+  }
+
+  const previousAssetReserve = liquidityPool.assetReserve;
+  const previousLpTokenSupply = liquidityPool.lpTokenSupply;
+  const lpTokensMinted = (assetAmount / previousAssetReserve) * previousLpTokenSupply;
+
+  liquidityPool.assetReserve += assetAmount;
+  liquidityPool.usdcReserve += usdcAmount;
+  liquidityPool.lpTokenSupply += lpTokensMinted;
+
+  return {
+    assetAmount,
+    usdcAmount,
+    lpTokensMinted,
+    updatedPool: liquidityPool,
+  };
+}
+
 module.exports = {
   getPool,
   getConstantProduct,
@@ -126,4 +157,5 @@ module.exports = {
   quoteBuy,
   buyAsset,
   sellAsset,
+  addLiquidity,
 };
