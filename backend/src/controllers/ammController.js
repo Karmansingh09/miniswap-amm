@@ -107,9 +107,35 @@ async function addLiquidity(req, res) {
   }
 }
 
+async function removeLiquidity(req, res) {
+  try {
+    const { lpTokens } = req.body;
+
+    if (lpTokens === undefined || lpTokens === null) {
+      return res.status(400).json({
+        success: false,
+        message: 'lpTokens is required',
+      });
+    }
+
+    const result = ammService.removeLiquidity(lpTokens);
+
+    return res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}
+
 module.exports = {
   quoteBuy,
   buyAsset,
   sellAsset,
   addLiquidity,
+  removeLiquidity,
 };

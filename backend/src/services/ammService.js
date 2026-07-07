@@ -150,6 +150,36 @@ function addLiquidity(assetAmount, usdcAmount) {
   };
 }
 
+/**
+ * Removes liquidity from the pool and burns LP tokens.
+ * @param {number} lpTokens - The amount of LP tokens to burn.
+ * @returns {Object} Removal details plus the updated pool state.
+ */
+function removeLiquidity(lpTokens) {
+  if (typeof lpTokens !== 'number' || !Number.isFinite(lpTokens) || lpTokens <= 0) {
+    throw new Error('lpTokens must be a positive finite number');
+  }
+
+  if (lpTokens > liquidityPool.lpTokenSupply) {
+    throw new Error('lpTokens cannot exceed lpTokenSupply');
+  }
+
+  const share = lpTokens / liquidityPool.lpTokenSupply;
+  const assetReturned = liquidityPool.assetReserve * share;
+  const usdcReturned = liquidityPool.usdcReserve * share;
+
+  liquidityPool.assetReserve -= assetReturned;
+  liquidityPool.usdcReserve -= usdcReturned;
+  liquidityPool.lpTokenSupply -= lpTokens;
+
+  return {
+    lpTokensBurned: lpTokens,
+    assetReturned,
+    usdcReturned,
+    updatedPool: liquidityPool,
+  };
+}
+
 module.exports = {
   getPool,
   getConstantProduct,
@@ -158,4 +188,5 @@ module.exports = {
   buyAsset,
   sellAsset,
   addLiquidity,
+  removeLiquidity,
 };
