@@ -79,10 +79,51 @@ function buyAsset(assetAmount) {
   };
 }
 
+/**
+ * Sells assets into the pool and updates the singleton liquidity state.
+ * Validation matches quoteBuy().
+ * @param {number} assetAmount - The amount of assets to sell.
+ * @returns {Object} The trade details plus the updated pool state.
+ */
+function sellAsset(assetAmount) {
+  if (typeof assetAmount !== 'number' || !Number.isFinite(assetAmount)) {
+    throw new Error('assetAmount must be a valid number');
+  }
+
+  if (assetAmount <= 0) {
+    throw new Error('assetAmount must be greater than 0');
+  }
+
+  if (assetAmount >= liquidityPool.assetReserve) {
+    throw new Error('assetAmount must be less than assetReserve');
+  }
+
+  const currentSpotPrice = getSpotPrice();
+  const constantProduct = getConstantProduct();
+  const newAssetReserve = liquidityPool.assetReserve + assetAmount;
+  const newUsdcReserve = constantProduct / newAssetReserve;
+  const usdcReceived = liquidityPool.usdcReserve - newUsdcReserve;
+  const effectivePrice = usdcReceived / assetAmount;
+  const priceImpact = ((currentSpotPrice - effectivePrice) / currentSpotPrice) * 100;
+
+  liquidityPool.assetReserve = newAssetReserve;
+  liquidityPool.usdcReserve = newUsdcReserve;
+
+  return {
+    assetAmount,
+    usdcReceived,
+    newAssetReserve,
+    newUsdcReserve,
+    priceImpact,
+    updatedPool: liquidityPool,
+  };
+}
+
 module.exports = {
   getPool,
   getConstantProduct,
   getSpotPrice,
   quoteBuy,
   buyAsset,
+  sellAsset,
 };
