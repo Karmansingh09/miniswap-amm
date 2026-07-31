@@ -14,8 +14,8 @@
 ## 📌 Submission Quick Links
 
 - **GitHub Repository**: [https://github.com/Karmansingh09/miniswap-amm](https://github.com/Karmansingh09/miniswap-amm)
-- **Live Demo**: `TODO — deployment pending`
-- **Demo Video (1–2 mins)**: `TODO — add 1–2 minute demo video before submission`
+- **Live Demo**: [https://miniswap-amm.vercel.app](https://miniswap-amm.vercel.app)
+- **Demo Video (1–2 mins)**: [Watch Demo Video](https://drive.google.com/file/d/1YcN4Iav-r_YkqaLMlvXhgicrM48s3vbM/view?usp=sharing)
 - **Deployed AMM Contract ID**: [`CAP7XKVIR32BF4RV2WLPTP5GMEFMFZYJMIP4MQHSW2NZJGKWRXMDKK3L`](https://stellar.expert/explorer/testnet/contract/CAP7XKVIR32BF4RV2WLPTP5GMEFMFZYJMIP4MQHSW2NZJGKWRXMDKK3L)
 - **Stellar Expert Explorer**: [View AMM Contract on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CAP7XKVIR32BF4RV2WLPTP5GMEFMFZYJMIP4MQHSW2NZJGKWRXMDKK3L)
 
@@ -356,9 +356,11 @@ Frontend unit tests covering Swap, Wallet, and Analytics functionality.
 
 ---
 
-## 📹 Demo Video
+## 🎥 Demo Video
 
-- **Video Link**: `TODO — add 1–2 minute demo video before submission`
+A short demonstration of StellarSwap Pro running live on Stellar Testnet, including Freighter wallet integration, liquidity, swaps, analytics, and on-chain transactions.
+
+▶️ [Watch the StellarSwap Pro Demo Video](https://drive.google.com/file/d/1YcN4Iav-r_YkqaLMlvXhgicrM48s3vbM/view?usp=sharing)
 
 ---
 
