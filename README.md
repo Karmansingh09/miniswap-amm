@@ -1,438 +1,333 @@
-# MiniSwap AMM
+# MiniSwap AMM & StellarSwap Pro
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Monorepo-Frontend%20%2B%20Backend-111827?style=for-the-badge&logo=github&logoColor=white" alt="Monorepo" />
-  <img src="https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/Express-API-111111?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/Soroban-Smart%20Contract-6366f1?style=for-the-badge&logo=stellar&logoColor=white" alt="Soroban" />
+  <img src="https://img.shields.io/badge/Stellar-Testnet-fbbf24?style=for-the-badge&logo=stellar&logoColor=black" alt="Testnet" />
+  <img src="https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/Vite-Build%20Tool-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Freighter-Wallet-FF3E00?style=for-the-badge" alt="Freighter Wallet" />
   <img src="https://img.shields.io/badge/License-MIT-2ea44f?style=for-the-badge" alt="License" />
 </p>
-
-<p align="center">
-  <strong>A decentralized exchange simulator inspired by Uniswap.</strong><br />
-  MiniSwap AMM is a polished learning project for automated market maker pricing, liquidity management, and REST API design.
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Architecture-Layered%20Design-8b5cf6?style=for-the-badge&logo=structure&logoColor=white" alt="Architecture" />
-  <img src="https://img.shields.io/badge/State-Singleton%20Liquidity%20Pool-14b8a6?style=for-the-badge&logo=cachet&logoColor=white" alt="Liquidity Pool" />
-  <img src="https://img.shields.io/badge/API-REST%20JSON-0ea5e9?style=for-the-badge&logo=fastapi&logoColor=white" alt="REST API" />
-</p>
-
----
-
-## Table of Contents
-
-- [Project Overview](#project-overview)
-- [Repository Structure](#repository-structure)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Request Flow](#request-flow)
-- [Backend Documentation](#backend-documentation)
-- [Constant Product Formula](#constant-product-formula)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Running the Project](#running-the-project)
-- [API Reference](#api-reference)
-- [Example Requests](#example-requests)
-- [Example Responses](#example-responses)
-- [Future Improvements](#future-improvements)
-- [Contributing](#contributing)
-- [License](#license)
-- [Footer](#footer)
 
 ---
 
 ## Project Overview
 
-MiniSwap AMM is a decentralized exchange simulator designed to demonstrate how an automated market maker works in practice.
+**MiniSwap AMM / StellarSwap Pro** is a fully on-chain decentralized exchange (DEX) built on the **Stellar Testnet** using **Soroban smart contracts**. Token swaps, liquidity deposits, and withdrawals are executed as genuine Soroban contract invocations signed by Freighter and confirmed on Testnet.
 
-The repository is organized as a small full-stack workspace with:
-
-- a Node.js + Express backend
-- a frontend workspace placeholder for future UI work
-- a shared project structure suitable for iterative expansion
-
-The backend currently supports:
-
-- health checks
-- buy quotes
-- buy asset execution
-- sell asset execution
-- add liquidity
-- remove liquidity
-
-<details>
-<summary><strong>What this project is useful for</strong></summary>
-
-MiniSwap AMM is ideal for:
-
-- learning constant product AMM mechanics
-- experimenting with liquidity pool state transitions
-- prototyping DEX-style APIs
-- demonstrating layered backend architecture
-- serving as a base for a future trading UI
-
-</details>
+- **GitHub Repository**: [Karmansingh09/miniswap-amm](https://github.com/Karmansingh09/miniswap-amm)
+- **Frontend**: React + Vite
+- **Wallet**: Freighter
+- **Network**: Stellar Testnet
 
 ---
 
-## Repository Structure
+## Stellar Testnet Deployment
 
-```text
-miniswap-amm/
-├── backend/
-│   ├── package.json
-│   ├── server.js
-│   ├── test.js
-│   └── src/
-│       ├── app.js
-│       ├── controllers/
-│       ├── models/
-│       ├── routes/
-│       └── services/
-├── frontend/
-└── README.md
-```
-
----
-
-## Features
-
-- ✅ REST health endpoint
-- ✅ Quote endpoint for AMM pricing previews
-- ✅ Buy and sell asset execution
-- ✅ Liquidity add and remove operations
-- ✅ Constant product pool math
-- ✅ Layered backend design
-- ✅ JSON request and response format
-- ✅ In-memory singleton liquidity model
-
-<details>
-<summary><strong>Feature summary</strong></summary>
-
-The backend simulates the core DEX lifecycle:
-
-1. A client requests a quote.
-2. The service calculates price impact using the pool state.
-3. Trades update the liquidity pool.
-4. Liquidity providers can join or exit proportionally.
-
-</details>
+| Field | Value |
+|-------|-------|
+| **Network** | Stellar Testnet |
+| **AMM Contract ID** | [`CAP7XKVIR32BF4RV2WLPTP5GMEFMFZYJMIP4MQHSW2NZJGKWRXMDKK3L`](https://stellar.expert/explorer/testnet/contract/CAP7XKVIR32BF4RV2WLPTP5GMEFMFZYJMIP4MQHSW2NZJGKWRXMDKK3L) |
+| **Initialization Tx Hash** | [`e90910c605a73d38b9eb6ec23d90f4cdc20cf84f9d1d443d2aa8671c28f7283f`](https://stellar.expert/explorer/testnet/tx/e90910c605a73d38b9eb6ec23d90f4cdc20cf84f9d1d443d2aa8671c28f7283f) |
+| **Token A (Native XLM SAC)** | [`CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`](https://stellar.expert/explorer/testnet/contract/CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC) |
+| **Token B (Test USDC SAC)** | [`CDO2QBWEPOA4HGJ4VMNC26MYRHHRIEK354X5TQQAYQTOKBFSKWMZUH77`](https://stellar.expert/explorer/testnet/contract/CDO2QBWEPOA4HGJ4VMNC26MYRHHRIEK354X5TQQAYQTOKBFSKWMZUH77) |
+| **Test USDC Issuer** | `GCX2VFJGK2IT5OWGQGDFZWDQRZAFUJSMLMI3HVIMGTZFMSJOFTGSGWQ3` |
+| **Soroban RPC** | `https://soroban-testnet.stellar.org` |
 
 ---
 
 ## Architecture
 
-```mermaid
-graph TD
-  A[Client] --> B[Express Server]
-  B --> C[Routes]
-  C --> D[Controllers]
-  D --> E[Services]
-  E --> F[Models]
-  F --> G[Liquidity Pool]
+```text
+miniswap-amm/
+├── .github/
+│   └── workflows/
+│       └── build.yml               # CI Build Verification
+├── miniswap/
+│   └── miniswap-amm/
+│       ├── contracts/
+│       │   └── amm/
+│       │       ├── src/
+│       │       │   ├── lib.rs      # Soroban AMM smart contract
+│       │       │   └── test.rs     # Contract unit tests
+│       │       └── Cargo.toml
+│       ├── frontend/               # React + Vite Web3 App
+│       │   └── src/
+│       │       ├── config/
+│       │       │   └── constants.js     # Network config + CONTRACT_ID
+│       │       ├── hooks/
+│       │       │   └── useFreighter.js  # Freighter wallet hook
+│       │       ├── services/
+│       │       │   └── stellar.js       # Soroban + Horizon service layer
+│       │       ├── utils/
+│       │       │   └── helpers.js       # Display utilities
+│       │       ├── App.jsx              # Main app with on-chain logic
+│       │       └── main.jsx
+│       └── backend/                # Node.js + Express (off-chain helpers)
+│           └── src/
+│               └── services/
+│                   └── ammService.js
+├── Cargo.toml                      # Rust workspace
+└── README.md
 ```
 
-### Layer Breakdown
-
-| Layer | Responsibility |
-|---|---|
-| Express Server | Hosts middleware and route registration |
-| Routes | Map HTTP paths to controller functions |
-| Controllers | Validate requests and format responses |
-| Services | Apply AMM business logic |
-| Models | Hold the shared liquidity state |
-| Liquidity Pool | Tracks reserves and LP token supply |
-
 ---
 
-## Request Flow
+## Soroban AMM Contract
 
-```mermaid
-flowchart TD
-  A[Client] --> B[Express Server]
-  B --> C[Routes]
-  C --> D[Controllers]
-  D --> E[Services]
-  E --> F[Liquidity Pool]
-  F --> G[JSON Response]
+Located at `contracts/amm/src/lib.rs`.
+
+### Storage Layout
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `Admin` | `Address` | Contract admin |
+| `TokenA` | `Address` | Token A SAC address |
+| `TokenB` | `Address` | Token B SAC address |
+| `ReserveA` | `i128` | Current Token A reserve |
+| `ReserveB` | `i128` | Current Token B reserve |
+| `TotalShares` | `i128` | Total LP shares minted |
+| `Shares(Address)` | `i128` | Per-user LP share balance |
+
+### Contract Functions
+
+| Function | Description |
+|----------|-------------|
+| `initialize(admin, token_a, token_b)` | One-time setup. Sets admin and token addresses. |
+| `deposit(to, amount_a, amount_b, min_a, min_b) → i128` | Add liquidity. Transfers tokens from `to` to contract. Mints LP shares proportionally (geometric mean for first deposit). |
+| `swap(to, buy_a, out_amount, max_in) → i128` | Constant-product swap with 0.3% fee (997/1000 factor). `buy_a=true` receives Token A, pays Token B. Enforces slippage via `max_in`. |
+| `withdraw(to, share_amount, min_a, min_b) → (i128, i128)` | Burn LP shares, return proportional tokens. Enforces minimum thresholds. |
+| `get_reserves() → (i128, i128)` | Read-only: returns current (ReserveA, ReserveB). |
+| `get_user_shares(user) → i128` | Read-only: returns LP share balance for user. |
+| `get_total_shares() → i128` | Read-only: returns total LP supply. |
+
+### AMM Formula
+
+**Constant product**: `x * y = k`
+
+**Swap with 0.3% fee** (buy Token A):
+```
+in_b = (res_b * out_a * 1000) / ((res_a - out_a) * 997) + 1
+```
+
+**First deposit shares** (geometric mean):
+```
+shares = sqrt(amount_a * amount_b)
+```
+
+**Subsequent deposit shares** (minimum proportional):
+```
+shares = min(amount_a * total / res_a, amount_b * total / res_b)
 ```
 
 ---
 
-## Backend Documentation
+## Freighter Wallet Integration
 
-The backend has its own detailed README with API examples and AMM math.
+The `useFreighter.js` hook:
+1. Detects whether the Freighter browser extension is installed
+2. Calls `requestAccess()` to prompt for wallet permission
+3. Returns the live public key (`G...`) from the connected account
+4. Fetches network details (name + passphrase)
+5. Provides `connect()` / `disconnect()` methods
 
-- [Backend README](backend/README.md)
+### Transaction Flow
+
+```
+User Input (amount)
+   │
+   ▼
+stellar.js — computeOutputFromInput() using on-chain reserves
+   │
+   ▼
+stellar.js — build Soroban TransactionBuilder
+   │
+   ▼
+Soroban RPC — simulateTransaction (get footprint + auth)
+   │
+   ▼
+stellar.js — assembleTransaction (merge resources)
+   │
+   ▼
+Freighter — signTransaction(xdr, { networkPassphrase })
+   │  (user confirms in extension popup)
+   ▼
+Soroban RPC — sendTransaction(signedXDR)
+   │
+   ▼
+Poll — getTransaction(hash) every 2s until CONFIRMED
+   │
+   ▼
+UI — show real 64-char hash + Stellar Expert link
+   │
+   ▼
+Refresh — getPoolReserves() + getXlmBalance() from chain
+```
 
 ---
 
-## Constant Product Formula
+## Deployment Instructions (Run These Manually)
 
-MiniSwap uses the standard AMM formula:
+### Prerequisites
 
-$$
- x \cdot y = k
-$$
+- Rust 1.84+ (you have 1.97.1 ✓)
+- `wasm32v1-none` target installed (`rustup target add wasm32v1-none`) ✓
 
-Where:
+### Step 1: Verify the WASM Binary
 
-- $x$ = asset reserve
-- $y$ = USDC reserve
-- $k$ = constant product
+The contract has already been compiled. The WASM binary is at:
+```
+target/wasm32v1-none/release/soroban_amm.wasm  (18KB)
+```
 
-### Buy Asset
+To recompile:
+```bash
+cd miniswap/miniswap-amm
+cargo build --release --target wasm32v1-none
+```
 
-- asset reserve decreases
-- USDC reserve increases
-- output price rises as liquidity is consumed
+### Step 2: Install Stellar CLI
 
-### Sell Asset
+```bash
+cargo install stellar-cli --version 22.7.0 --locked
+```
 
-- asset reserve increases
-- USDC reserve decreases
-- output price falls as liquidity is added
+Or via homebrew (if available on your system):
+```bash
+brew install stellar/tap/stellar-cli
+```
 
-### Add Liquidity
+### Step 3: Generate a Deployer Keypair
 
-- both reserves increase
-- LP tokens are minted based on the provider's share
+```bash
+stellar keys generate deployer --network testnet
+```
 
-### Remove Liquidity
+### Step 4: Fund the Account via Friendbot
 
-- both reserves decrease proportionally
-- LP tokens are burned
-- the provider withdraws their share of the pool
+```bash
+stellar keys fund deployer --network testnet
+```
 
-<details>
-<summary><strong>Formula summary</strong></summary>
+### Step 5: Deploy the Contract
 
-- **Buy quote**
-  - `newAssetReserve = assetReserve - assetAmount`
-  - `newUsdcReserve = k / newAssetReserve`
-  - `usdcRequired = newUsdcReserve - usdcReserve`
+Run from the `miniswap/miniswap-amm` directory:
+```bash
+stellar contract deploy \
+  --wasm target/wasm32v1-none/release/soroban_amm.wasm \
+  --source deployer \
+  --network testnet
+```
 
-- **Sell quote**
-  - `newAssetReserve = assetReserve + assetAmount`
-  - `newUsdcReserve = k / newAssetReserve`
-  - `usdcReceived = usdcReserve - newUsdcReserve`
+**Copy the Contract ID from the output** (it starts with `C...`).
 
-- **Add liquidity**
-  - `lpTokensMinted = (assetAmount / previousAssetReserve) * previousLpTokenSupply`
+### Step 6: Initialize the Contract
 
-- **Remove liquidity**
-  - `share = lpTokens / lpTokenSupply`
-  - `assetReturned = assetReserve * share`
-  - `usdcReturned = usdcReserve * share`
+```bash
+stellar contract invoke \
+  --id <CONTRACT_ID> \
+  --source deployer \
+  --network testnet \
+  -- initialize \
+  --admin <DEPLOYER_ADDRESS> \
+  --token_a <TOKEN_A_ADDRESS> \
+  --token_b <TOKEN_B_ADDRESS>
+```
 
-</details>
+Where `TOKEN_A_ADDRESS` and `TOKEN_B_ADDRESS` are Stellar Asset Contract (SAC) addresses for your tokens on Testnet.
+
+### Step 7: Update constants.js
+
+Open `frontend/src/config/constants.js` and set:
+
+```js
+export const CONTRACT_ID = '<YOUR_REAL_CONTRACT_ID>';
+```
+
+The deployment banner will disappear and all on-chain features will activate.
+
+---
+
+## Local Setup
+
+### Prerequisites
+- Node.js 18+
+- npm
+- Freighter browser extension (install from [freighter.app](https://freighter.app))
+- Set Freighter to **Testnet** network
+
+### Frontend
+
+```bash
+cd miniswap/miniswap-amm/frontend
+npm install
+npm run dev
+# Opens at http://localhost:5173
+```
+
+### Backend (off-chain AMM helpers)
+
+```bash
+cd miniswap/miniswap-amm/backend
+npm install
+npm start
+# Runs at http://localhost:5000
+```
+
+---
+
+## Testnet Testing Instructions
+
+1. Install [Freighter](https://freighter.app) browser extension
+2. Open Freighter → Settings → Network → Switch to **Testnet**
+3. Get Testnet XLM from [Stellar Laboratory Friendbot](https://laboratory.stellar.org/#account-creator?network=test)
+4. Run the frontend: `npm run dev`
+5. Click **Connect Wallet** → Freighter popup → Approve
+6. Navigate to **Swap** tab → enter amount → click Swap
+7. Freighter will show a transaction approval popup
+8. Confirm → wait ~5-10 seconds for ledger confirmation
+9. A real 64-character transaction hash and Stellar Expert link will appear
+10. Click the explorer link to verify the transaction on Testnet
+
+---
+
+## Build Instructions
+
+```bash
+cd miniswap/miniswap-amm/frontend
+npm install
+npm run build
+# Output in dist/
+```
+
+## CI/CD
+
+GitHub Actions automatically builds the frontend on every push to `main`.
+See `.github/workflows/build.yml`.
 
 ---
 
 ## Tech Stack
 
+### Frontend
+- **Framework**: React 19 + Vite 8
+- **Wallet SDK**: `@stellar/freighter-api` v6
+- **Stellar SDK**: `@stellar/stellar-sdk` (Soroban RPC + transaction building)
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Testing**: Vitest + JSDOM + React Testing Library
+
 ### Backend
+- **Framework**: Node.js + Express
+- **Architecture**: Layered MVC (off-chain helpers, not used for on-chain logic)
 
-- Node.js
-- Express
-- JavaScript
-- dotenv
-- cors
-- nodemon
-
-### Project Style
-
-- REST API design
-- layered architecture
-- in-memory domain modeling
-- Mermaid documentation
+### Contract
+- **Language**: Rust (Soroban SDK 26.0.0)
+- **Target**: `wasm32v1-none`
+- **Compiled**: `soroban_amm.wasm` (18 KB)
 
 ---
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ recommended
-- npm
-
-### Clone the repository
-
-```bash
-git clone <your-repo-url>
-cd miniswap-amm
-```
-
-### Install backend dependencies
-
-```bash
-cd backend
-npm install
-```
-
-### Configure environment variables
-
-Create a `.env` file inside `backend/` if needed:
-
-```env
-PORT=5000
-```
-
----
-
-## Running the Project
-
-### Start the backend in development mode
-
-```bash
-cd backend
-npm run dev
-```
-
-### Start the backend in production mode
-
-```bash
-cd backend
-npm start
-```
-
-### Run backend manual tests
-
-```bash
-cd backend
-npm test
-```
-
-The backend will be available at:
-
-```text
-http://localhost:5000
-```
-
----
-
-## API Reference
-
-| Method | Endpoint | Purpose |
-|---|---|---|
-| GET | `/api/health` | Returns service health |
-| POST | `/api/quote` | Returns a buy quote |
-| POST | `/api/buy-asset` | Buys assets and updates the pool |
-| POST | `/api/sell-asset` | Sells assets and updates the pool |
-| POST | `/api/add-liquidity` | Adds liquidity and mints LP tokens |
-| POST | `/api/remove-liquidity` | Removes liquidity and burns LP tokens |
-
----
-
-## Example Requests
-
-### Health Check
-
-```bash
-curl http://localhost:5000/api/health
-```
-
-### Quote
-
-```bash
-curl -X POST http://localhost:5000/api/quote \
-  -H "Content-Type: application/json" \
-  -d '{"assetAmount":100}'
-```
-
-### Add Liquidity
-
-```bash
-curl -X POST http://localhost:5000/api/add-liquidity \
-  -H "Content-Type: application/json" \
-  -d '{"assetAmount":100,"usdcAmount":20000}'
-```
-
-### Remove Liquidity
-
-```bash
-curl -X POST http://localhost:5000/api/remove-liquidity \
-  -H "Content-Type: application/json" \
-  -d '{"lpTokens":50}'
-```
-
----
-
-## Example Responses
-
-<details>
-<summary><strong>Health</strong></summary>
-
-```json
-{
-  "success": true,
-  "message": "MiniSwap API is running 🚀"
-}
-```
-
-</details>
-
-<details>
-<summary><strong>Quote</strong></summary>
-
-```json
-{
-  "success": true,
-  "data": {
-    "assetAmount": 100,
-    "usdcRequired": 22222.22222222222,
-    "newAssetReserve": 900,
-    "newUsdcReserve": 222222.22222222222,
-    "priceImpact": 11.1111111111111
-  }
-}
-```
-
-</details>
-
----
-
-## Future Improvements
-
-- Add a production database for pool persistence
-- Add authentication and role-based access control
-- Add a frontend trading interface
-- Add transaction history and charting
-- Add slippage controls
-- Add multi-pool support
-- Add automated integration tests
-- Add TypeScript migration
-
----
-
-## Contributing
-
-Contributions are welcome.
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Make focused changes.
-4. Validate your changes locally.
-5. Open a pull request.
-
-### Guidelines
-
-- Keep changes minimal and intentional.
-- Follow the existing backend architecture.
-- Update documentation when behavior changes.
-- Prefer clear names and consistent formatting.
-
----
-
-## License
-
-This project is licensed under the MIT License. Add a `LICENSE` file if you plan to distribute the project publicly.
-
----
-
-## Footer
 
 <p align="center">
-  Crafted and maintained by Karman Singh Chandhok
+  Crafted by Karman Singh Chandhok & pair-programmed with Antigravity AI
 </p>
