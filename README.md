@@ -336,13 +336,23 @@ StellarSwap Pro features a mobile-native presentation designed specifically for 
 
 ## 🖼️ Screenshots
 
-*Placeholders for submission screenshots:*
+### 📱 Mobile Responsive UI
 
-- **Desktop UI**: `TODO: Add desktop UI screenshot`
-- **Mobile Responsive UI**: `TODO: Add mobile responsive UI screenshot`
-- **On-Chain Swap Execution**: `TODO: Add successful swap transaction screenshot`
-- **Unit Test Suite Output (9/9 Passed)**: `TODO: Add vitest test output screenshot`
-- **CI/CD Pipeline Run**: `TODO: Add GitHub Actions workflow screenshot`
+Responsive mobile interface with Freighter wallet connection, Stellar Testnet assets, and mobile navigation.
+
+![Mobile Responsive UI](docs/screenshots/mobile-responsive.jpg)
+
+### ⚙️ CI/CD Pipeline
+
+GitHub Actions CI pipeline successfully completed for the project.
+
+![CI/CD Pipeline](docs/screenshots/ci-cd.jpg)
+
+### 🧪 Test Suite — 9/9 Passed
+
+Frontend unit tests covering Swap, Wallet, and Analytics functionality.
+
+![Test Suite - 9 Tests Passed](docs/screenshots/tests-passed.jpg)
 
 ---
 
